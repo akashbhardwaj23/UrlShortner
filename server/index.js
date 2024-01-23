@@ -15,15 +15,15 @@ app.use(cors({
     origin: "*"
 }));
 
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 const shortCode = customAlphabet(urlAlphabet,5)();
 
 
-app.post("/url", (req,res) => {
-    const {url} = req.body.url;
-
+app.get("/url", (req,res) => {
+    // const {url} = req.body.url;
+    console.log(shortCode)
 
 })
 
