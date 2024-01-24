@@ -35,7 +35,9 @@ app.post("/api/url", (req,res) => {
 
     shorturl = shorturl + "//xyz.com/";
     shorturl += shortCode
-    console.log(shorturl)
+    console.log(shorturl);
+
+    res.status(201).json({shorturl})
 
 })
 
