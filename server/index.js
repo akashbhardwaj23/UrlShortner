@@ -33,12 +33,15 @@ app.post("/api/url", (req,res) => {
 
     let shorturl = shortUrlArray[0];
 
-    shorturl = shorturl + "//xyz.com/";
-    shorturl += shortCode
-    console.log(shorturl);
-
-    res.status(201).json({shorturl})
-
+    if(shorturl === "https:" || shorturl === "http:"){
+        shorturl = shorturl + "//xyz.com/";
+        shorturl += shortCode
+        console.log(shorturl);
+        res.status(201).json({shorturl})
+        return
+    }
+    
+    res.status(501).json({message:"Invalid URL"})
 })
 
 app.get("/*", (req,res) => {
