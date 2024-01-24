@@ -21,10 +21,26 @@ app.use(bodyParser.json())
 const shortCode = customAlphabet(urlAlphabet,5)();
 
 
-app.get("/url", (req,res) => {
-    // const {url} = req.body.url;
-    console.log(shortCode)
+app.get("/", (req,res) => {
+    console.log("hello guys");
+    res.send("Hello Guys in DOM")
+})
 
+
+app.post("/api/url", (req,res) => {
+    const {longUrl} = req.body;
+    const shortUrlArray = longUrl.split("/");
+
+    let shorturl = shortUrlArray[0];
+
+    shorturl = shorturl + "//xyz.com/";
+    shorturl += shortCode
+    console.log(shorturl)
+
+})
+
+app.get("/*", (req,res) => {
+    res.send("Getting the Request")
 })
 
 
