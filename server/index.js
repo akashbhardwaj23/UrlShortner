@@ -28,7 +28,9 @@ app.get("/", (req,res) => {
 
 
 app.post("/api/url", (req,res) => {
-    const {longUrl} = req.body;
+
+    console.log(req.body.longUrl)
+    const { longUrl } = req.body;
     const shortUrlArray = longUrl.split("/");
 
     let shorturl = shortUrlArray[0];
@@ -52,6 +54,6 @@ app.get("/*", (req,res) => {
 // NEED TO UNDERSTAND GRAPHQL FOR THIS
 
 
-app.listen(3000, () => {
-    console.log("Listening on port 3000")
+app.listen(3001, () => {
+    console.log("Listening on port 3001")
 })
