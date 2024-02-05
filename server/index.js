@@ -41,7 +41,7 @@ app.post("/api/url", async (req,res) => {
     console.log(shortUrl);
 
     let id = nanoid(7);
-
+    // can also use some Api
     if(shortUrl === "https:" || shortUrl === "http:"){
         shortUrl = shortUrl.slice(0, shortUrl.length - 2) + "://localhost:3000/";
 
