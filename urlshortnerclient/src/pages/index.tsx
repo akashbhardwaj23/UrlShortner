@@ -14,11 +14,23 @@ export default function Home() {
         longUrl: url,
       });
 
+      // console.log(result);
+      // console.log(result.data.shortUrl);
+      // setError(false);
+      // setShortUrl(result.data.shortUrl);
+      // console.log(shortUrl);
+
+      // For next js Only
+
       console.log(result);
-      console.log(result.data.shorturl);
+      console.log(result.data.myShortUrl);
       setError(false);
-      setShortUrl(result.data.shorturl);
+      setShortUrl(result.data.myShortUrl);
       console.log(shortUrl);
+
+      // Thats it
+
+
     } catch (error) {
       setError(true);
       console.log(error);
