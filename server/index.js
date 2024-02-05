@@ -54,7 +54,7 @@ app.post("/api/url", async (req,res) => {
         console.log(shortUrl);
         
         console.log(shortCode)
-       const hasUrl = await UrlModel.findOne({originalUrl:longUrl});
+       const hasUrl = await UrlModel.findOne({shortCode:shortCode});
 
 
        console.log(hasUrl)
@@ -68,12 +68,6 @@ app.post("/api/url", async (req,res) => {
             console.log("An Error has Occured")
         }
        }
-
-
-
-      
-
-
 
 
         res.status(201).json({myShortUrl, shortCode})
