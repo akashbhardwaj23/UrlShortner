@@ -23,7 +23,7 @@ const shortCode = customAlphabet(urlAlphabet,5)();
 
 app.get("/", (req,res) => {
     console.log("hello guys");
-    res.send("Hello Guys in DOM")
+    res.redirect(307,"/api/url")
 })
 
 
@@ -32,8 +32,9 @@ app.post("/api/url", (req,res) => {
     console.log(req.body.longUrl)
     const { longUrl } = req.body;
     const shortUrlArray = longUrl.split("/");
-
     let shorturl = shortUrlArray[0];
+
+    console.log(shorturl)
 
     if(shorturl === "https:" || shorturl === "http:"){
         shorturl = shorturl + "//xyz.com/";
@@ -43,10 +44,11 @@ app.post("/api/url", (req,res) => {
         return
     }
     
-    res.status(501).json({message:"Invalid URL"})
+    res.status(404).json({message:"Invalid URL"})
 })
 
 app.get("/*", (req,res) => {
+    console.log("Url is Redirected")
     res.send("Getting the Request")
 })
 
