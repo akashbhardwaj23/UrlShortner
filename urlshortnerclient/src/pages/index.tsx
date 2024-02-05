@@ -1,9 +1,6 @@
 "use client";
-import { Inter } from "next/font/google";
 import axios from "axios";
-import React, { useCallback, useRef, useState } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import React, { useCallback, useState } from "react";
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -33,6 +30,10 @@ export default function Home() {
     navigator.clipboard.writeText(shortUrl);
   }, [shortUrl]);
 
+  const handleErrorButton = useCallback(() => {
+    setError(false)
+  },[error])
+
   // const handleMe = async () => {
   //   const data = await axios.get("http://localhost:3001/")
   //   console.log(data)
@@ -40,8 +41,9 @@ export default function Home() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center">
-        <h1 className="text-5xl">Error</h1>
+      <div className="flex flex-col items-center justify-between">
+        <h1 className="text-5xl mb-14">Error</h1>
+        <button className="p-4 bg-green-600 rounded-md text-xl font-semibold" onClick={handleErrorButton}>Go to Url Page</button>
       </div>
     );
   }
@@ -54,7 +56,7 @@ export default function Home() {
         type="text"
         id=""
         placeholder="Enter the URL"
-        className="p-4 w-1/2 text-black rounded-sm"
+        className="p-4 w-1/2 text-black rounded-sm focus:outline focus:outline-[3px] focus:outline-orange-600"
         onChange={(e) => setUrl(e.target.value)}
       />
 
