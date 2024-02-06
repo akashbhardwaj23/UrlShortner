@@ -1,17 +1,18 @@
 "use client";
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [error, setError] = useState(false);
-
+  const [shortCode, setShortCode] = useState("");
 
   const getTheData = async () => {
     try {
       const result = await axios.post("http://localhost:3001/api/url", {
         longUrl: url,
+        shortCode,
       });
 
       // console.log(result);
@@ -22,15 +23,11 @@ export default function Home() {
 
       // For next js Only
 
-      console.log(result);
-      console.log(result.data.myShortUrl);
       setError(false);
-      setShortUrl(result.data.myShortUrl);
-      console.log(shortUrl);
+      setShortUrl(result.data.message);
+      console.log(result.data.message);
 
       // Thats it
-
-
     } catch (error) {
       setError(true);
       console.log(error);
@@ -38,13 +35,35 @@ export default function Home() {
   };
 
   const handleCopy = useCallback(() => {
-   
     navigator.clipboard.writeText(shortUrl);
   }, [shortUrl]);
 
   const handleErrorButton = useCallback(() => {
-    setError(false)
-  },[error])
+    setError(false);
+  }, [error]);
+
+  useEffect(() => {
+    const generateShortCode = async () => {
+      try {
+        const result = await fetch("http://localhost:3001/shortCode",{
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },  
+        });
+        
+        result.json().then((data):any => {
+          console.log(data)
+          setShortCode(data.shortCode)
+        })
+        // // setShortCode(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    generateShortCode();
+  }, [url]);
 
   // const handleMe = async () => {
   //   const data = await axios.get("http://localhost:3001/")
@@ -55,7 +74,12 @@ export default function Home() {
     return (
       <div className="flex flex-col items-center justify-between">
         <h1 className="text-5xl mb-14">Error</h1>
-        <button className="p-4 bg-green-600 rounded-md text-xl font-semibold" onClick={handleErrorButton}>Go to Url Page</button>
+        <button
+          className="p-4 bg-green-600 rounded-md text-xl font-semibold"
+          onClick={handleErrorButton}
+        >
+          Go to Url Page
+        </button>
       </div>
     );
   }
@@ -78,12 +102,14 @@ export default function Home() {
       >
         SHORT
       </button>
-      {shortUrl && (<div className="mt-8 bg-white p-4 pr-12 flex">
-        <p className="text-2xl text-black mr-4">{shortUrl}</p>
-        <button className="p-4 bg-green-600" onClick={handleCopy}>
-          copy
-        </button>
-      </div>)}
+      {shortUrl && (
+        <div className="mt-8 bg-white p-4 pr-12 flex items-center rounded-sm">
+          <p className="text-2xl text-black mr-4">{shortUrl}</p>
+          <button className="p-4 bg-green-600 rounded-md uppercase" onClick={handleCopy}>
+            copy
+          </button>
+        </div>
+      )}
 
       {/* <button onClick={handleMe}>
         Me
