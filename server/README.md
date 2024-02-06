@@ -9,11 +9,8 @@
 
 ```javascript
     npm start
-
     #yarn
-
     yarn start
-
     #pnpm
     pnpm start
 
