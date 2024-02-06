@@ -26,14 +26,12 @@ const shortCode = customAlphabet(urlAlphabet,5)();
 
 
 app.get("/", (req,res) => {
-    console.log("hello guys");
     res.redirect(307,"/api/url")
 })
 
 
 app.post("/api/url", async (req,res) => {
 
-    console.log(req.body.longUrl)
     const { longUrl } = req.body;
     const shortUrlArray = longUrl.split("/");
     let shortUrl = shortUrlArray[0];
@@ -48,7 +46,6 @@ app.post("/api/url", async (req,res) => {
          // For nextjs only
        const myShortUrl = shortUrl + "api/" + shortCode;
 
-
        // Here the regular code start
         shortUrl += shortCode
         console.log(shortUrl);
@@ -56,10 +53,8 @@ app.post("/api/url", async (req,res) => {
         console.log(shortCode)
        const hasUrl = await UrlModel.findOne({shortCode:shortCode});
 
-
-       console.log(hasUrl)
        if(hasUrl){
-        console.log("You have the url")
+        console.log("Url is Already There")
        } else {
         const newUrl = new UrlModel({shortUrl, shortCode, originalUrl:longUrl})
         try {
@@ -81,9 +76,6 @@ app.get("/:id", async (req,res) => {
     const {id} = req.params;
     
     console.log(id)
-
-    console.log("reached here")
-
     const data = await UrlModel.findOne({shortCode:id});
     console.log(data)
 
@@ -98,12 +90,6 @@ app.get("/*", (req,res) => {
     console.log("Url is Redirected")
     res.send("Getting the Request")
 })
-
-
-
-
-// NEED TO UNDERSTAND GRAPHQL FOR THIS
-
 
 mongoose.connect(process.env.MONGODB_URL).then(() => {
     app.listen(3001, () => {
