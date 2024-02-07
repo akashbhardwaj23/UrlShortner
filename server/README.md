@@ -9,7 +9,7 @@
 
 ```javascript
     npm start
-    // # or
+    # or
     yarn start
     # or
     pnpm start
