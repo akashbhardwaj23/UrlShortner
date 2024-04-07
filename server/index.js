@@ -3,7 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { urlAlphabet, customAlphabet, nanoid } from "nanoid";
+import { urlAlphabet, customAlphabet } from "nanoid";
 import { UrlModel } from "./model/urlSchema.js";
 
 // customAlphabet: is a function that allows us to create a unique string generator, and we can specify the alphabet and size for the unique string.
