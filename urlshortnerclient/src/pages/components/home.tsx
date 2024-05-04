@@ -79,7 +79,7 @@ function IntroPage() {
   return (
     <div className="p-8 pt-36 min-h-full flex flex-col justify-start items-center h-full overflow-x-hidden">
       <h1 className="text-5xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#1F89DB] via-[#F42A8B] to-[#1F89DB] font-bold">
-       Shorten's Your Links
+       Shortens Your Links
       </h1>
 
       <h2 className="text-sm text-[#C9CED6] mb-10 text-wrap">
