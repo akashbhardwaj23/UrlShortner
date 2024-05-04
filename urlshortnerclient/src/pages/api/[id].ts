@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { BACKEND_URL } from "../config";
+import { BACKEND_URL } from "../../config";
 
 type Data = {
   id: string;

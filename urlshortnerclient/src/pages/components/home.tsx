@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Error from "./error";
 import { Button } from "@/components/ui/button";
-import { BACKEND_URL } from "../config";
+import { BACKEND_URL } from "../../config";
 
 function IntroPage() {
   const [url, setUrl] = useState("");
