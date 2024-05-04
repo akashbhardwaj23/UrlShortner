@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { urlAlphabet, customAlphabet } from "nanoid";
 import { UrlModel } from "./model/urlSchema.js";
+import { BACKEND_URL } from "./config/index.js";
 
 // customAlphabet: is a function that allows us to create a unique string generator, and we can specify the alphabet and size for the unique string.
 // urlAlphabet is a predefined alphabet designed to generate unique URL-friendly strings.
@@ -68,7 +69,7 @@ app.post("/api/url", async (req, res) => {
       console.log('Short Url already Exits')
     }
 
-    res.status(201).json({ message: `http://localhost:3000/api/${shortCode}` });
+    res.status(201).json({ message: `${BACKEND_URL}/${shortCode}` });
     return;
   }
 
