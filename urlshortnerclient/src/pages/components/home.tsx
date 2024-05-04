@@ -42,7 +42,7 @@ function IntroPage() {
 
   const handleErrorButton = useCallback(() => {
     setError(false);
-  }, [error]);
+  }, []);
 
   useEffect(() => {
     const generateShortCode = async () => {
