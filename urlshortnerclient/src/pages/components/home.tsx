@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Error from "./error";
 import { Button } from "@/components/ui/button";
+import { BACKEND_URL } from "../config";
 
 function IntroPage() {
   const [url, setUrl] = useState("");
@@ -11,7 +12,7 @@ function IntroPage() {
 
   const getTheData = async () => {
     try {
-      const result = await axios.post("http://localhost:3001/api/url", {
+      const result = await axios.post(`${BACKEND_URL}/api/url`, {
         longUrl: url,
         shortCode,
       });
@@ -46,7 +47,7 @@ function IntroPage() {
   useEffect(() => {
     const generateShortCode = async () => {
       try {
-        const result = await fetch("http://localhost:3001/shortCode", {
+        const result = await fetch(`${BACKEND_URL}/shortCode`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
