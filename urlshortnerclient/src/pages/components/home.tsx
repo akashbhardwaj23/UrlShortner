@@ -77,40 +77,62 @@ function IntroPage() {
   }
 
   return (
-    <div className="flex flex-col items-center p-8">
-      <h1 className="text-5xl mb-6">URL SHORTNER</h1>
+    <div className="p-8 pt-36 min-h-full flex flex-col justify-start items-center h-full overflow-x-hidden">
+      <h1 className="text-5xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#1F89DB] via-[#F42A8B] to-[#1F89DB] font-bold">
+       Shorten's Your Links
+      </h1>
+
+      <h2 className="text-sm text-[#C9CED6] mb-10 text-wrap">
+        UrlShortner is an efficient and easy-to-use URL shortening service that
+        streamlines your online experience.
+      </h2>
 
       <input
         type="text"
         id=""
         placeholder="Enter the URL"
-        className="p-4 w-1/2 text-black rounded-sm focus:outline focus:outline-[3px] focus:outline-orange-600"
+        className="p-4 w-1/2 text-white bg-[#181E29] mb-4 rounded-md focus:outline focus:outline-[3px] focus:outline-orange-600"
         onChange={(e) => setUrl(e.target.value)}
       />
-{/* 
-      <button
-        className="p-4 mt-6 bg-green-600 rounded-md uppercase font-semibold"
+
+      <div className="flex items-center">
+        <div className="h-2 w-2 bg-[#144EE3] rounded-full mr-2"></div>
+
+        <div className="text-sm text-[#C9CED6]">Auto Paste from Clipboard</div>
+      </div>
+      {/* 
+<button
+  className="p-4 mt-6 bg-green-600 rounded-md uppercase font-semibold"
+  onClick={getTheData}
+>
+  SHORT
+</button> */}
+      <Button
+        variant={"ghost"}
+        className="border-2 border-blue-600 border-solid mt-6 font-semibold"
         onClick={getTheData}
       >
         SHORT
-      </button> */}
-      <Button variant={"ghost"} className="border-2 border-blue-600 border-solid mt-6 font-semibold" onClick={getTheData}>SHORT</Button>
+      </Button>
       {shortUrl && (
         <div className="mt-8 bg-white p-4 pr-6 flex items-center rounded-sm">
           <p className="text-2xl text-black mr-4">{shortUrl}</p>
           {/* <button
-            className="p-4 bg-green-600 rounded-md uppercase"
-            onClick={handleCopy}
-          >
-            copy
-          </button> */}
-          <Button variant={"secondary"} onClick={handleCopy}> copy </Button>
+      className="p-4 bg-green-600 rounded-md uppercase"
+      onClick={handleCopy}
+    >
+      copy
+    </button> */}
+          <Button variant={"secondary"} onClick={handleCopy}>
+            {" "}
+            copy{" "}
+          </Button>
         </div>
       )}
 
       {/* <button onClick={handleMe}>
-      Me
-    </button> */}
+Me
+</button> */}
     </div>
   );
 }
