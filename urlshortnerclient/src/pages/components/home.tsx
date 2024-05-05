@@ -7,10 +7,13 @@ import { BACKEND_URL } from "../../config";
 function IntroPage() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [shortCode, setShortCode] = useState("");
 
   const getTheData = async () => {
+    setLoading(true)
+
     try {
       const result = await axios.post(`${BACKEND_URL}/api/url`, {
         longUrl: url,
@@ -26,11 +29,13 @@ function IntroPage() {
       // For next js Only
 
       setError(false);
+      setLoading(false);
       setShortUrl(result.data.message);
       console.log(result.data.message);
 
       // Thats it
     } catch (error) {
+      setLoading(false)
       setError(true);
       console.log(error);
     }
@@ -75,6 +80,12 @@ function IntroPage() {
   if (error) {
     return <Error handleErrorButton={handleErrorButton} />;
   }
+
+  if(loading) return (
+    <div className="h-screen flex justify-center items-center">
+      <h1>Loading...</h1>
+    </div>
+  )
 
   return (
     <div className="p-8 pt-36 min-h-full flex flex-col justify-start items-center h-full overflow-x-hidden">
