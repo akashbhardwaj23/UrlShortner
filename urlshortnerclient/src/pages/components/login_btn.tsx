@@ -2,8 +2,7 @@ import { Avatar,AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { signIn, signOut } from "next-auth/react"
 
 export default function LoginBtn({session} : any) {
-    console.log(session.user.image)
- 
+    
   if (session) {
     return (
         <div className="flex relative top-[-.5rem]">
