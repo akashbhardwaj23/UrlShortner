@@ -1,7 +1,19 @@
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { ChangeEvent, useState } from "react";
 
 export default function Login() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+        const handleClick = async () => {
+            const res = await fetch("api/signin", {
+                method : "POST",
+                body : JSON.stringify({username, password}),
+            })
+
+            console.log(res)
+        }
     return (
         <div className="min-h-screen h-full flex justify-center items-center">
             <div className="w-full max-w-md p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-[#0c121d]">
@@ -12,7 +24,7 @@ export default function Login() {
         <div className="mt-6">
             <div>
                 <label htmlFor="username" className="block text-sm text-gray-800 dark:text-gray-200 font-bold">Username</label>
-                <input type="text" className="block w-full px-4 py-2 mt-2 border rounded-md bg-gray-800 text-gray-100 border-gray-600 focus:border-blue-500 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                <input type="text" className="block w-full px-4 py-2 mt-2 border rounded-md bg-gray-800 text-gray-100 border-gray-600 focus:border-blue-500 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" onChange={(e:ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
             </div>
     
             <div className="mt-4">
@@ -21,11 +33,11 @@ export default function Login() {
                     <Link href="" className="text-xs text-gray-600 dark:text-gray-400 hover:underline">Forget Password?</Link>
                 </div>
     
-                <input type="password" className="block w-full px-4 py-2 mt-2 border rounded-md bg-gray-800 text-gray-100 border-gray-600 focus:border-blue-500 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                <input type="password" className="block w-full px-4 py-2 mt-2 border rounded-md bg-gray-800 text-gray-100 border-gray-600 focus:border-blue-500 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" onChange={(e:ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
             </div>
     
             <div className="mt-6">
-                <button className="w-full px-6 py-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+                <button className="w-full px-6 py-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50" onClick={handleClick}>
                     Sign In
                 </button>
             </div>
