@@ -6,14 +6,7 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-        const handleClick = async () => {
-            const res = await fetch("api/signin", {
-                method : "POST",
-                body : JSON.stringify({username, password}),
-            })
-
-            console.log(res)
-        }
+     
     return (
         <div className="min-h-screen h-full flex justify-center items-center">
             <div className="w-full max-w-md p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-[#0c121d]">
@@ -37,7 +30,7 @@ export default function Login() {
             </div>
     
             <div className="mt-6">
-                <button className="w-full px-6 py-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50" onClick={handleClick}>
+                <button className="w-full px-6 py-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50" onClick={() => signIn("credentials", {username, password, callbackUrl:"/"})}>
                     Sign In
                 </button>
             </div>
