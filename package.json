@@ -1,0 +1,11 @@
+{
+  "name": "urlshortner",
+  "version": "1.0.0",
+  "description": "- Next JS\r - Express\r - Next Router\r - Tailwind CSS\r - MONGODB \r - ShadCn\r - nanoid",
+  "scripts": {
+    "start": "cd server && npm start && cd ../urlshortnerclient && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

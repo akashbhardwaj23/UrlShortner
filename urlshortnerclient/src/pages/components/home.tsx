@@ -20,12 +20,6 @@ function IntroPage() {
         shortCode,
       });
 
-      // console.log(result);
-      // console.log(result.data.shortUrl);
-      // setError(false);
-      // setShortUrl(result.data.shortUrl);
-      // console.log(shortUrl);
-
       // For next js Only
 
       setError(false);
@@ -60,7 +54,6 @@ function IntroPage() {
         });
 
         result.json().then((data): any => {
-          console.log(data);
           setShortCode(data.shortCode);
         });
         // // setShortCode(result);
@@ -71,11 +64,6 @@ function IntroPage() {
 
     generateShortCode();
   }, [url]);
-
-  // const handleMe = async () => {
-  //   const data = await axios.get("http://localhost:3001/")
-  //   console.log(data)
-  // }
 
   if (error) {
     return <Error handleErrorButton={handleErrorButton} />;
@@ -111,13 +99,6 @@ function IntroPage() {
 
         <div className="text-sm text-[#C9CED6]">Auto Paste from Clipboard</div>
       </div>
-      {/* 
-<button
-  className="p-4 mt-6 bg-green-600 rounded-md uppercase font-semibold"
-  onClick={getTheData}
->
-  SHORT
-</button> */}
       <Button
         variant={"ghost"}
         className="border-2 border-blue-600 border-solid mt-6 font-semibold"
@@ -128,22 +109,12 @@ function IntroPage() {
       {shortUrl && (
         <div className="mt-8 bg-white p-4 pr-6 flex items-center rounded-sm">
           <p className="text-2xl text-black mr-4">{shortUrl}</p>
-          {/* <button
-      className="p-4 bg-green-600 rounded-md uppercase"
-      onClick={handleCopy}
-    >
-      copy
-    </button> */}
           <Button variant={"secondary"} onClick={handleCopy}>
             {" "}
             copy{" "}
           </Button>
         </div>
       )}
-
-      {/* <button onClick={handleMe}>
-Me
-</button> */}
     </div>
   );
 }

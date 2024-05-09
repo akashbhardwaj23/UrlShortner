@@ -35,25 +35,6 @@ export const authOptions = {
             }
           }
           return null;
-        }
-          try {
-            const user = await prisma.user.create({
-              data : {
-                email : username,
-                password,
-                name : "Name"
-              }
-            })
-
-            return {
-              userId : user.id.toString(),
-              name : user.name,
-              email : user.email
-            }
-
-            
-          } catch (error) {
-            console.log(error)
           }
       }
     }),
