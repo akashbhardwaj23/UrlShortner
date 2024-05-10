@@ -8,11 +8,12 @@ function IntroPage() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [changeIcon, setChangeIcon] = useState(false);
   const [error, setError] = useState(false);
   const [shortCode, setShortCode] = useState("");
 
   const getTheData = async () => {
-    setLoading(true)
+    setLoading(true);
 
     try {
       const result = await axios.post(`${BACKEND_URL}/api/url`, {
@@ -29,7 +30,7 @@ function IntroPage() {
 
       // Thats it
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       setError(true);
       console.log(error);
     }
@@ -37,6 +38,7 @@ function IntroPage() {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(shortUrl);
+    setChangeIcon(true);
   }, [shortUrl]);
 
   const handleErrorButton = useCallback(() => {
@@ -69,16 +71,17 @@ function IntroPage() {
     return <Error handleErrorButton={handleErrorButton} />;
   }
 
-  if(loading) return (
-    <div className="h-screen flex justify-center items-center">
-      <h1>Loading...</h1>
-    </div>
-  )
+  if (loading)
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <h1>Loading...</h1>
+      </div>
+    );
 
   return (
     <div className="p-8 pt-36 min-h-full flex flex-col justify-start items-center h-full overflow-x-hidden">
       <h1 className="text-5xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#1F89DB] via-[#F42A8B] to-[#1F89DB] font-bold">
-       Shortens Your Links
+        Shortens Your Links
       </h1>
 
       <h2 className="text-sm text-[#C9CED6] mb-10 text-wrap">
@@ -110,8 +113,37 @@ function IntroPage() {
         <div className="mt-8 bg-white p-4 pr-6 flex items-center rounded-sm">
           <p className="text-2xl text-black mr-4">{shortUrl}</p>
           <Button variant={"secondary"} onClick={handleCopy}>
-            {" "}
-            copy{" "}
+            {changeIcon ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m4.5 12.75 6 6 9-13.5"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+                />
+              </svg>
+            )}
           </Button>
         </div>
       )}
