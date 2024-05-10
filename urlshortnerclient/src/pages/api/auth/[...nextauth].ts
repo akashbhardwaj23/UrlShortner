@@ -49,7 +49,7 @@ export const authOptions = {
 
   ],
 
-  secret : process.env.SECRET,
+  secret : process.env.NEXTAUTH_SECRET,
 
   callbacks : {
     async session({session,token ,user}:any){
