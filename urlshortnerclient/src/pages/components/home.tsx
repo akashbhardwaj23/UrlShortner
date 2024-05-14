@@ -3,6 +3,7 @@ import axios from "axios";
 import Error from "./error";
 import { Button } from "@/components/ui/button";
 import { BACKEND_URL } from "../../config";
+import { useSession } from "next-auth/react";
 
 function IntroPage() {
   const [url, setUrl] = useState("");
@@ -11,10 +12,11 @@ function IntroPage() {
   const [changeIcon, setChangeIcon] = useState(false);
   const [error, setError] = useState(false);
   const [shortCode, setShortCode] = useState("");
+  const session = useSession();
 
   const getTheData = async () => {
+    if(!session.data) return alert("Please Sign In to use this feature")
     setLoading(true);
-
     try {
       const result = await axios.post(`${BACKEND_URL}/api/url`, {
         longUrl: url,
@@ -91,7 +93,7 @@ function IntroPage() {
 
       <input
         type="text"
-        id=""
+        readOnly = {session.data ? false : true}
         placeholder="Enter the URL"
         className="p-4 w-1/2 text-white bg-[#181E29] mb-4 rounded-md focus:outline focus:outline-[3px] focus:outline-orange-600"
         onChange={(e) => setUrl(e.target.value)}
