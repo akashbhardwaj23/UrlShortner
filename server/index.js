@@ -11,14 +11,14 @@ import { BACKEND_URL } from "./config/index.js";
 // urlAlphabet is a predefined alphabet designed to generate unique URL-friendly strings.
 
 const app = express();
-
+dotenv.config();
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.ORIGIN_URL,
   })
 );
 
-dotenv.config();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
