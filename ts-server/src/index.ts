@@ -3,8 +3,9 @@ import dotenv from "dotenv"
 import cors from "cors"
 import mongoose from "mongoose"
 import { urlAlphabet, customAlphabet } from "nanoid";
-import  UrlModel  from "./model/urlschema";
-import { BACKEND_URL } from "./config/index";
+import  UrlModel  from "../model/urlschema";
+import { BACKEND_URL } from "../config/index";
+import routeHandler from "./routes/route";
 
 const app = express();
 dotenv.config();
@@ -14,6 +15,10 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+app.use("/", routeHandler);
+app.use("/shortCode", shortCodeHandler);
 
 
 app.get("/", (req, res) => {
