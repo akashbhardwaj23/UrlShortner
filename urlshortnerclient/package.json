@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "postinstall" : "npx prisma generate",
+    "postinstall": "npx prisma generate",
     "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
@@ -22,7 +22,8 @@
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "urlshortnerclient": "file:"
   },
   "devDependencies": {
     "@types/node": "^20",

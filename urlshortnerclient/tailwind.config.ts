@@ -67,11 +67,24 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "push" : {
+          "0%, 50%": {
+            transform : "translate(-50% , 0%) scale(1)"
+          },
+          "100%" : {
+            transform : "translate(-50%, -100%) scale(0)"
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "push" : "push 2s infinite linear"
       },
+      transform : {
+        "scale" : "translate(-50% , -100%) scale(0)"
+      }
+
     },
   },
   plugins: [require("tailwindcss-animate")],

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BACKEND_URL } from "../../config";
 import { useSession } from "next-auth/react";
 
-function IntroPage() {
+function HomePage() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,8 +14,8 @@ function IntroPage() {
   const [shortCode, setShortCode] = useState("");
   const session = useSession();
 
-  const getTheData = async () => {
-    if(!session.data) return alert("Please Sign In to use this feature")
+  const getData = async () => {
+    if (!session.data) return alert("Please Sign In to use this feature");
     setLoading(true);
     try {
       const result = await axios.post(`${BACKEND_URL}/api/url`, {
@@ -38,8 +38,8 @@ function IntroPage() {
     }
   };
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(shortUrl);
+  const handleCopy = useCallback(async() => {
+   await navigator.clipboard.writeText(shortUrl);
     setChangeIcon(true);
   }, [shortUrl]);
 
@@ -75,9 +75,13 @@ function IntroPage() {
 
   if (loading)
     return (
-      <div className="h-screen flex justify-center items-center">
-        <h1>Loading...</h1>
-      </div>
+      <div className="flex items-center justify-center p-20">
+    <div className="relative">
+        <div className="h-32 w-32 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+        <div className="absolute top-0 left-0 h-32 w-32 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
+        </div>
+    </div>
+</div>
     );
 
   return (
@@ -93,11 +97,19 @@ function IntroPage() {
 
       <input
         type="text"
-        readOnly = {session.data ? false : true}
+        readOnly={session.data ? false : true}
         placeholder="Enter the URL"
         className="p-4 w-1/2 text-white bg-[#181E29] mb-4 rounded-md focus:outline focus:outline-[3px] focus:outline-orange-600"
         onChange={(e) => setUrl(e.target.value)}
       />
+
+      {
+        !session.data && (
+          <div className="w-1/2 font-mono text-sm font-bold text-blue-600/90">
+          Please Login To Shorten The url
+        </div>
+        )
+      }
 
       <div className="flex items-center">
         <div className="h-2 w-2 bg-[#144EE3] rounded-full mr-2"></div>
@@ -107,7 +119,7 @@ function IntroPage() {
       <Button
         variant={"ghost"}
         className="border-2 border-blue-600 border-solid mt-6 font-semibold"
-        onClick={getTheData}
+        onClick={getData}
       >
         SHORT
       </Button>
@@ -153,4 +165,4 @@ function IntroPage() {
   );
 }
 
-export default IntroPage;
+export default HomePage;
