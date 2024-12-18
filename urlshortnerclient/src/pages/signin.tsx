@@ -5,6 +5,8 @@ import { ChangeEvent, useState } from "react";
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState<string>("")
+    
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
@@ -19,7 +21,7 @@ export default function Login() {
                         <p className="text-gray-400">Sign in to your account</p>
                     </div>
 
-                    <form className="space-y-6">
+                    <div className="space-y-6">
                         <div>
                             <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
                                 Username
@@ -60,22 +62,35 @@ export default function Login() {
                             </div>
 
                             <div className="text-sm">
-                                <Link href="" className="font-medium text-blue-400 hover:text-blue-300 transition duration-200">
+                                <Link href="/forgotpassword" className="font-medium text-blue-400 hover:text-blue-300 transition duration-200">
                                     Forgot password?
                                 </Link>
                             </div>
                         </div>
 
+                        {error && (
+                            <div>
+                                <p className="text-red-500 text-sm">{error}</p>
+                            </div>
+                        )}
+
                         <div>
                             <button
                                 type="button"
                                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200"
-                                onClick={() => signIn("credentials", { username, password, callbackUrl: "/" })}
+                                onClick={() => {
+                                    if (username === "" || password === "") {
+                                        setError("Please fill all the fields")
+                                        setTimeout(() => setError(""), 5000)
+                                        return
+                                    }
+                                    signIn("credentials", { username, password, callbackUrl: "/" })
+                                }}
                             >
                                 Sign In
                             </button>
                         </div>
-                    </form>
+                    </div>
 
                     <div className="mt-6">
                         <div className="relative">

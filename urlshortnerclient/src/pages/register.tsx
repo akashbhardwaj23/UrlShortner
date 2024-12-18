@@ -8,6 +8,7 @@ const Register = () => {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [image, setImage] = useState<File>();
+    const [error, setError] = useState<string>("")
 
     const handleRequest = async() => {
         const formData = new FormData();
@@ -16,6 +17,11 @@ const Register = () => {
         formData.set("password", password);
         formData.append("image", image as Blob);
 
+        if (name === "" || email === "" || password === "" || image === undefined) {
+            setError("Please fill all the fields")
+            setTimeout(() => setError(""), 5000)
+            return
+            }
         try {
             const res = await axios.post("/api/signup", formData);
             console.log(res.data)
@@ -23,6 +29,8 @@ const Register = () => {
             console.log(error)
         }
     }
+
+    
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
@@ -89,6 +97,12 @@ const Register = () => {
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setImage(e.target?.files?.[0])}
                                 />
                             </div>
+
+                            {error && (
+                                <div>
+                                    <p className="text-red-500 text-sm">{error}</p>
+                                </div>
+                            )}
 
                             <div>
                                 <button

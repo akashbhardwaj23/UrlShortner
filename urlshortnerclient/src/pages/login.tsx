@@ -59,7 +59,7 @@ export default function Login() {
           </form>
 
           <div className="text-sm text-center space-y-2">
-            <Link href="#" className="font-medium text-blue-500 hover:text-blue-400">
+            <Link href="/forgotpassword" className="font-medium text-blue-500 hover:text-blue-400">
               Forgot your password?
             </Link>
             <p className="text-gray-400">
