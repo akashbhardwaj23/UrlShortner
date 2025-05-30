@@ -4,6 +4,7 @@ import Error from "./error";
 import { Button } from "@/components/ui/button";
 import { BACKEND_URL } from "../../config";
 import { useSession } from "next-auth/react";
+import { toast, Toaster } from "sonner";
 
 function HomePage() {
   const [url, setUrl] = useState("");
@@ -15,7 +16,12 @@ function HomePage() {
   const session = useSession();
 
   const getData = async () => {
-    if (!session.data) return alert("Please Sign In to use this feature");
+    if (!session.data) {
+      toast.error("Please SignIn to use this feature", {
+        style : {backgroundColor : "#144EE3", color : "white", borderColor : "black"}
+      });
+      return;
+    }
     setLoading(true);
     try {
       const result = await axios.post(`${BACKEND_URL}/api/url`, {
@@ -34,8 +40,8 @@ function HomePage() {
     }
   };
 
-  const handleCopy = useCallback(async() => {
-   await navigator.clipboard.writeText(shortUrl);
+  const handleCopy = useCallback(async () => {
+    await navigator.clipboard.writeText(shortUrl);
     setChangeIcon(true);
   }, [shortUrl]);
 
@@ -73,14 +79,16 @@ function HomePage() {
       <div className="flex items-center justify-center p-20">
         <div className="relative">
           <div className="h-24 w-24 md:h-32 md:w-32 rounded-full border-t-8 border-b-8 border-gray-200"></div>
-          <div className="absolute top-0 left-0 h-24 w-24 md:h-32 md:w-32 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
-          </div>
+          <div className="absolute top-0 left-0 h-24 w-24 md:h-32 md:w-32 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
         </div>
       </div>
     );
 
   return (
     <div className="p-4 md:p-8 pt-20 md:pt-36 min-h-full flex flex-col justify-start items-center h-full overflow-x-hidden">
+         <Toaster 
+          className=""
+         />
       <h1 className="text-3xl md:text-5xl mb-4 md:mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#1F89DB] via-[#F42A8B] to-[#1F89DB] font-bold">
         Shortens Your Links
       </h1>
@@ -98,13 +106,11 @@ function HomePage() {
         onChange={(e) => setUrl(e.target.value)}
       />
 
-      {
-        !session.data && (
-          <div className="w-full md:w-3/4 lg:w-1/2 font-mono text-sm font-bold text-blue-600/90 text-center mb-4">
-            Please Login To Shorten The url
-          </div>
-        )
-      }
+      {!session.data && (
+        <div className="w-full md:w-3/4 lg:w-1/2 font-mono text-sm font-bold text-blue-600/90 text-center mb-4">
+          Please Login To Shorten The url
+        </div>
+      )}
 
       <div className="flex items-center mb-4">
         <div className="h-2 w-2 bg-[#144EE3] rounded-full mr-2"></div>
@@ -121,8 +127,14 @@ function HomePage() {
 
       {shortUrl && (
         <div className="mt-4 bg-white p-3 md:p-4 pr-4 md:pr-6 flex items-center justify-between rounded-sm w-full md:w-3/4 lg:w-1/2">
-          <p className="text-lg md:text-2xl text-black truncate mr-2">{shortUrl}</p>
-          <Button variant={"secondary"} onClick={handleCopy} className="flex-shrink-0">
+          <p className="text-lg md:text-2xl text-black truncate mr-2">
+            {shortUrl}
+          </p>
+          <Button
+            variant={"secondary"}
+            onClick={handleCopy}
+            className="flex-shrink-0"
+          >
             {changeIcon ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
